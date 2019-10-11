@@ -40,10 +40,10 @@ class Money(object):
     def __init__(self, amount="0", currency=None):
         try:
             self._amount = decimal.Decimal(amount)
-        except decimal.InvalidOperation:
+        except Exception:
             try:
                 self._amount = decimal.Decimal(str(amount))
-            except decimal.InvalidOperation:
+            except Exception:
                 # RADAR: Python2
                 money.six.raise_from(ValueError("amount value could not be "
                     "converted to Decimal(): '{0}'".format(amount)), None)
