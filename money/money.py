@@ -41,9 +41,13 @@ class Money(object):
         try:
             self._amount = decimal.Decimal(amount)
         except decimal.InvalidOperation:
-            # RADAR: Python2
-            money.six.raise_from(ValueError("amount value could not be "
-                "converted to Decimal(): '{0}'".format(amount)), None)
+            try:
+                self._amount = decimal.Decimal(str(amount))
+            except decimal.InvalidOperation:
+                # RADAR: Python2
+                money.six.raise_from(ValueError("amount value could not be "
+                    "converted to Decimal(): '{0}'".format(amount)), None)
+
         if currency in [None, False, '']:
             raise ValueError("invalid currency value: '{0}'".format(currency))
         if not REGEX_CURRENCY_CODE.match(currency):
