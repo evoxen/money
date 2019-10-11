@@ -88,7 +88,7 @@ class ExchangeRates(object):
         elif isinstance(backend, type):
             backend = backend()
         if not isinstance(backend, BackendBase):
-            raise TypeError("backend '{}' is not a subclass of "
+            raise TypeError("backend '{0}' is not a subclass of "
                             "money.xrates.BackendBase".format(backend))
         self._backend = backend
 

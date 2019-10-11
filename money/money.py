@@ -43,12 +43,12 @@ class Money(object):
         except decimal.InvalidOperation:
             # RADAR: Python2
             money.six.raise_from(ValueError("amount value could not be "
-                "converted to Decimal(): '{}'".format(amount)), None)
+                "converted to Decimal(): '{0}'".format(amount)), None)
         if currency in [None, False, '']:
-            raise ValueError("invalid currency value: '{}'".format(currency))
+            raise ValueError("invalid currency value: '{0}'".format(currency))
         if not REGEX_CURRENCY_CODE.match(currency):
             raise ValueError("currency not in ISO 4217 format: "
-                             "'{}'".format(currency))
+                             "'{0}'".format(currency))
         self._currency = currency
     
     @property
@@ -63,7 +63,7 @@ class Money(object):
         return hash((self._amount, self._currency))
     
     def __repr__(self):
-        return "{} {}".format(self._currency, self._amount)
+        return "{0} {1}".format(self._currency, self._amount)
     
     def __str__(self):
         # RADAR: Python2
@@ -73,7 +73,7 @@ class Money(object):
     
     # RADAR: Python2
     def __unicode__(self):
-        return u"{} {:,.2f}".format(self._currency, self._amount)
+        return u"{0} {1:,.2f}".format(self._currency, self._amount)
     
     def __lt__(self, other):
         if not isinstance(other, Money):
@@ -193,7 +193,7 @@ class Money(object):
     
     def __mod__(self, other):
         if isinstance(other, Money):
-            raise TypeError("modulo is unsupported between two '{}' "
+            raise TypeError("modulo is unsupported between two '{0}' "
                             "objects".format(self.__class__.__name__))
         if other == 0:
             raise ZeroDivisionError()
@@ -216,7 +216,7 @@ class Money(object):
     
     def __pow__(self, other):
         if isinstance(other, Money):
-            raise TypeError("power operator is unsupported between two '{}' "
+            raise TypeError("power operator is unsupported between two '{0}' "
                             "objects".format(self.__class__.__name__))
         amount = self._amount ** other
         return self.__class__(amount, self._currency)
@@ -282,7 +282,7 @@ class Money(object):
         """
         if BABEL_AVAILABLE:
             if BABEL_VERSION < StrictVersion('2.2'):
-                raise Exception('Babel {} is unsupported. '
+                raise Exception('Babel {0} is unsupported. '
                     'Please upgrade to 2.2 or higher.'.format(BABEL_VERSION))
             return babel.numbers.format_currency(
                 self._amount, self._currency, format=pattern, locale=locale,
@@ -300,7 +300,7 @@ class Money(object):
         except ValueError as err:
             # RADAR: Python2
             money.six.raise_from(ValueError("failed to parse string "
-                " '{}': {}".format(s, err)), None)
+                " '{0}': {1}".format(s, err)), None)
 
 
 class XMoney(Money):
