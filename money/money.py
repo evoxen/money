@@ -73,7 +73,7 @@ class Money(object):
     
     # RADAR: Python2
     def __unicode__(self):
-        return u"{0} {1:,.2f}".format(self._currency, self._amount)
+        return u"{0} {1:.2f}".format(self._currency, self._amount)
     
     def __lt__(self, other):
         if not isinstance(other, Money):
